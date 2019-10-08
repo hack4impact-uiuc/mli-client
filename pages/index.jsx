@@ -7,7 +7,7 @@ import { Example, Head, LoadWrapper } from "../components";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { setExample } from "../redux/actions";
-import "../static/style.scss";
+import "../public/style.scss";
 
 /**
  * Fetches Redux state and assigns it to props.
