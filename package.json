@@ -1,0 +1,38 @@
+{
+  "name": "react-boilerplate-js",
+  "version": "0.1.0",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "css-loader": "^3.2.0",
+    "next": "^9.1.0",
+    "next-page-transitions": "^1.0.0-beta.2",
+    "next-redux-wrapper": "^3.0.0",
+    "node-sass": "^4.12.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8"
+  },
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "format": "prettier --write \"./**/*.{js,jsx,json,md}\"",
+    "format:check": "prettier --write \"./**/*.{js,jsx,json,md}\"",
+    "lint": "eslint \"./**/*.{js,jsx}\" && markdownlint README.md",
+    "start": "next start"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@h4iuiuc/eslint-plugin": "^1.0.8",
+    "eslint": "^6.5.1",
+    "markdownlint-cli": "^0.18.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.3"
+  }
+}
