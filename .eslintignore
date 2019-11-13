@@ -49,5 +49,8 @@ main.js.map
 
 .idea
 npm-debug.log.*
+__snapshots__
 
-.vscode
+# Package.json
+package.json
+.travis.yml
