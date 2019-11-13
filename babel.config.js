@@ -27,6 +27,7 @@ module.exports = api => {
           useBuiltIns: 'usage'
         }
       ],
+      require('@babel/preset-flow'),
       [require('@babel/preset-react'), { development }]
     ],
     plugins: [
