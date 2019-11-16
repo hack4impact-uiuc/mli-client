@@ -3,9 +3,9 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import routes from '../constants/routes';
 import styles from './Home.css';
-
 
 type Props = {};
 
@@ -44,7 +44,7 @@ export default class Home extends Component<Props> {
         </Dropzone>
         <h3>Upload Lateral View Images</h3>
         <h3>Upload AP View Images</h3>
-        <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR6me2KcJpYHsSB1Rn-8pNo5s8PBymQLoNxllnrPiEUGRL4bnem"/>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR6me2KcJpYHsSB1Rn-8pNo5s8PBymQLoNxllnrPiEUGRL4bnem" />
         <Link to={routes.COUNTER}>to Counter</Link>
       </div>
     );
