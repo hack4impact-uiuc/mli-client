@@ -1,3 +1,4 @@
+
 .backButton {
   position: absolute;
 }
@@ -6,3 +7,22 @@
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
 }
+.images {
+  display:flex;
+  flex-wrap:nowrap;
+  padding-top: 10%
+
+}
+/* .apPre {
+  max-width: calc(100% / 3);
+  max-height: calc(100% / 3);
+}
+.apOverlay {
+  max-width: calc(100% / 3);
+  max-height: calc(100% / 3);
+}
+
+.apPost {
+  max-width: calc(100% / 3);
+  max-height: calc(100% / 3);
+} */
