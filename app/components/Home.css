@@ -3,6 +3,8 @@
   top: 25%;
   left: inherit;
   text-align: center;
+  color: #eae8eb;
+  font-family: sans-serif;
 }
 
 .container h2 {
@@ -11,4 +13,14 @@
 
 .container a {
   font-size: 1.4rem;
+}
+
+
+.link {
+  font-family: sans-serif;
+  bottom: 25%;
+  text-align: center;
+}
+.btn {
+  color: white;
 }

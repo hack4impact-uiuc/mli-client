@@ -49,74 +49,79 @@ export default class Home extends Component<Props> {
   //<Dropzone onDrop={(file: any) => this.handleFileSelect('content1', file)} name="content1" className="dropzones" multiple={false} accept={allowedExtensions}>
   render() {
     return (
-      <div className={styles.container} data-tid="container">
-        <h4>Please only upload the following types: .png, .jpeg, jpg, .tiff</h4>
-        <h3>Upload AP View Images</h3>
-        <Dropzone onDrop={this.onDrop.bind(this)}>
-          {({ getRootProps, getInputProps }) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                {this.state.files.length > 0 ? (
-                  <p>{`Uploaded ${this.state.files[0].name}. Click to change.`}</p>
-                ) : (
-                  <Button>Add AP Image 1</Button>
-                )}
-              </div>
-            </section>
-          )}
-        </Dropzone>
+      <>
+        <div className={styles.container} data-tid="container">
+          <h1>Please only upload the following types: .png, .jpeg, jpg</h1>
+          <p>Upload AP View Images</p>
+          <Dropzone onDrop={this.onDrop.bind(this)}>
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {this.state.files.length > 0 ? (
+                    <h4>{`Uploaded ${this.state.files[0].name}. Click to change.`}</h4>
+                  ) : (
+                    <Button>Add AP Image 1</Button>
+                  )}
+                </div>
+              </section>
+            )}
+          </Dropzone>
 
-        <Dropzone onDrop={this.onDrop2.bind(this)}>
-          {({ getRootProps, getInputProps }) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                {this.state.files2.length > 0 ? (
-                  <p>{`Uploaded ${this.state.files2[0].name}. Click to change.`}</p>
-                ) : (
-                  <Button>Add AP Image 2</Button>
-                )}
-              </div>
-            </section>
-          )}
-        </Dropzone>
+          <Dropzone onDrop={this.onDrop2.bind(this)}>
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {this.state.files2.length > 0 ? (
+                    <h4>{`Uploaded ${this.state.files2[0].name}. Click to change.`}</h4>
+                  ) : (
+                    <Button>Add AP Image 2</Button>
+                  )}
+                </div>
+              </section>
+            )}
+          </Dropzone>
 
-        <h3>Upload Lateral View Images</h3>
-        <Dropzone onDrop={this.onDrop3.bind(this)}>
-          {({ getRootProps, getInputProps }) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                {this.state.files3.length > 0 ? (
-                  <p>{`Uploaded ${this.state.files3[0].name}. Click to change.`}</p>
-                ) : (
-                  <Button>Add Lat Image 2</Button>
-                )}
-              </div>
-            </section>
-          )}
-        </Dropzone>
+          <p>Upload Lateral View Images</p>
+          <Dropzone onDrop={this.onDrop3.bind(this)}>
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {this.state.files3.length > 0 ? (
+                    <h4>{`Uploaded ${this.state.files3[0].name}. Click to change.`}</h4>
+                  ) : (
+                    <Button>Add Lat Image 2</Button>
+                  )}
+                </div>
+              </section>
+            )}
+          </Dropzone>
 
-        <Dropzone onDrop={this.onDrop4.bind(this)}>
-          {({ getRootProps, getInputProps }) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                {this.state.files4.length > 0 ? (
-                  <p>{`Uploaded ${this.state.files4[0].name}. Click to change.`}</p>
-                ) : (
-                  <Button>Add Lat Image 2</Button>
-                )}
-              </div>
-            </section>
-          )}
-        </Dropzone>
-        <Link to={routes.COUNTER}>to Counter</Link>
-        <Link to={routes.DISPLAY}>
-          <Button>Compare Images</Button>
-        </Link>
-      </div>
+          <Dropzone onDrop={this.onDrop4.bind(this)}>
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {this.state.files4.length > 0 ? (
+                    <h4>{`Uploaded ${this.state.files4[0].name}. Click to change.`}</h4>
+                  ) : (
+                    <Button>Add Lat Image 2</Button>
+                  )}
+                </div>
+              </section>
+            )}
+          </Dropzone>
+        </div>
+
+        <div className={styles.link} data-tid="link">
+          <h1>
+
+            <Link to={routes.DISPLAY}>Compare Images</Link>
+          </h1>
+        </div>
+      </>
     );
   }
 }

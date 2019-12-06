@@ -1,17 +1,17 @@
 
 .backButton {
+  color: #dadfe0;
   position: absolute;
 }
 
 .backButton:hover {
   color: white;
-  background-color: rgba(0, 0, 0, 0.5);
 }
 .images {
+  text-align: center;
+  padding-top: 10%;
   display:flex;
   flex-wrap:nowrap;
-  padding-top: 10%
-
 }
 /* .apPre {
   max-width: calc(100% / 3);
