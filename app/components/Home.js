@@ -18,7 +18,10 @@ export default class Home extends Component<Props> {
       files: [],
       files2: [],
       files3: [],
-      files4: []
+      files4: [],
+      left: null,
+      right: null,
+      overlay: null
     };
     this.testRequest = this.testRequest.bind(this);
   }
@@ -48,24 +51,33 @@ export default class Home extends Component<Props> {
   }
 
   async testRequest() {
-    console.log('here');
-    const file1 = await this.getBase64(this.state.files[0]);
-    const file2 = await this.getBase64(this.state.files2[0]);
-    console.log(file1);
+    const file1 = await this.readFileDataAsBase64(this.state.files[0]);
+    const file1Data = file1.slice(file1.indexOf(',') + 1);
 
-    const res = getOverlay(file1, file2);
-    console.log(file1);
-    console.log(res);
+    const file2 = await this.readFileDataAsBase64(this.state.files2[0]);
+    const file2Data = file2.slice(file2.indexOf(',') + 1);
+    const res = await getOverlay(file1Data, file2Data);
+
+    const images = res.response.data.images;
+    this.setState({ left: images[0], right: images[1], overlay: images[2] });
   }
 
-  async getBase64(file, cb) {
-    let reader = new FileReader();
-    await reader.readAsDataURL(file);
-    return reader.result;
+  readFileDataAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = event => {
+        resolve(event.target.result);
+      };
+
+      reader.onerror = err => {
+        reject(err);
+      };
+
+      reader.readAsDataURL(file);
+    });
   }
 
-  //<Dropzone onDrop={this.onDrop.bind(this)}>
-  //<Dropzone onDrop={(file: any) => this.handleFileSelect('content1', file)} name="content1" className="dropzones" multiple={false} accept={allowedExtensions}>
   render() {
     return (
       <>
@@ -140,6 +152,10 @@ export default class Home extends Component<Props> {
           </h1>
         </div>
         <Button onClick={this.testRequest}>Test request</Button>
+        {this.state.left &&
+          [this.state.left, this.state.overlay, this.state.right].map(image => (
+            <img src={`data:image/png;base64,${image}`} />
+          ))}
       </>
     );
   }

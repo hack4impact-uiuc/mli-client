@@ -2,12 +2,29 @@
 import { INCREMENT_COUNTER, DECREMENT_COUNTER } from '../actions/counter';
 import type { Action } from './types';
 
-export default function counter(state: number = 0, action: Action) {
+const initialState = {
+  left: '',
+  right: '',
+  overlay: ''
+};
+
+export default function counter(state: initialState, action: Action) {
   switch (action.type) {
-    case INCREMENT_COUNTER:
-      return state + 1;
-    case DECREMENT_COUNTER:
-      return state - 1;
+    case SET_LEFT:
+      return {
+        ...state,
+        left: action.value
+      };
+    case SET_RIGHT:
+      return {
+        ...state,
+        right: action.value
+      };
+    case SET_OVERLAY:
+      return {
+        ...state,
+        overlay: action.value
+      };
     default:
       return state;
   }
