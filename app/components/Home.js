@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import routes from '../constants/routes';
 import styles from './Home.css';
+import { getOverlay } from '../utils/ApiWrapper';
 
 type Props = {};
 
@@ -19,6 +20,7 @@ export default class Home extends Component<Props> {
       files3: [],
       files4: []
     };
+    this.testRequest = this.testRequest.bind(this);
   }
 
   onDrop(files) {
@@ -43,6 +45,23 @@ export default class Home extends Component<Props> {
     this.setState({
       files4
     });
+  }
+
+  async testRequest() {
+    console.log('here');
+    const file1 = await this.getBase64(this.state.files[0]);
+    const file2 = await this.getBase64(this.state.files2[0]);
+    console.log(file1);
+
+    const res = getOverlay(file1, file2);
+    console.log(file1);
+    console.log(res);
+  }
+
+  async getBase64(file, cb) {
+    let reader = new FileReader();
+    await reader.readAsDataURL(file);
+    return reader.result;
   }
 
   //<Dropzone onDrop={this.onDrop.bind(this)}>
@@ -120,6 +139,7 @@ export default class Home extends Component<Props> {
             <Link to={routes.OVERLAYED}>Compare Images</Link>
           </h1>
         </div>
+        <Button onClick={this.testRequest}>Test request</Button>
       </>
     );
   }
