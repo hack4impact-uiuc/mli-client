@@ -29,8 +29,8 @@ export default class Labeled extends Component<Props> {
           </Link>
         </div>
         <div className={styles.iframe} data-tid="iframe">
-          <iframe id="iframe1" src={labeled1} height="75%" width="100%"></iframe>
-          <iframe id="iframe2" src={labeled2} height="75%" width="100%"></iframe>
+          <Iframe id="iframe1" src={labeled1} height="75%" width="100%"></Iframe>
+          <Iframe id="iframe2" src={labeled2} height="75%" width="100%"></Iframe>
         </div>
 
 

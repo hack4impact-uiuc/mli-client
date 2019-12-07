@@ -30,9 +30,9 @@ export default class Overlayed extends Component<Props> {
           </Link>
         </div>
         <div className={styles.iframe} data-tid="iframe">
-          <iframe id="iframe1" src={pre} height="75%" width="100%"></iframe>
-          <iframe id="iframe2" src={overlay} height="75%" width="100%"></iframe>
-          <iframe id="iframe2" src={post} height="75%" width="100%"></iframe>
+          <Iframe id="iframe1" src={pre} height="75%" width="100%"></Iframe>
+          <Iframe id="iframe2" src={overlay} height="75%" width="100%"></Iframe>
+          <Iframe id="iframe2" src={post} height="75%" width="100%"></Iframe>
         </div>
 
 
