@@ -26,47 +26,35 @@ class Home extends Component<Props> {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
-      files2: [],
-      files3: [],
-      files4: [],
+      preFiles: [],
+      postFiles: [],
       waiting: false
     };
+    this.onDropPre = this.onDropPre.bind(this);
+    this.onDropPost = this.onDropPost.bind(this);
     this.testRequest = this.testRequest.bind(this);
   }
 
-  onDrop(files) {
+  onDropPre(preFiles) {
     this.setState({
-      files
+      preFiles
     });
   }
 
-  onDrop2(files2) {
+  onDropPost(postFiles) {
     this.setState({
-      files2
-    });
-  }
-
-  onDrop3(files3) {
-    this.setState({
-      files3
-    });
-  }
-
-  onDrop4(files4) {
-    this.setState({
-      files4
+      postFiles
     });
   }
 
   async testRequest() {
     this.setState({ waiting: true });
-    const file1 = await this.readFileDataAsBase64(this.state.files[0]);
-    const file1Data = file1.slice(file1.indexOf(',') + 1);
+    const preFile = await this.readFileDataAsBase64(this.state.preFiles[0]);
+    const preFileData = preFile.slice(preFile.indexOf(',') + 1);
 
-    const file2 = await this.readFileDataAsBase64(this.state.files2[0]);
-    const file2Data = file2.slice(file2.indexOf(',') + 1);
-    const res = await getOverlay(file1Data, file2Data);
+    const postFile = await this.readFileDataAsBase64(this.state.postFiles[0]);
+    const postFileData = postFile.slice(postFile.indexOf(',') + 1);
+    const res = await getOverlay(preFileData, postFileData);
 
     const images = res.response.data.images;
     this.props.setLeft(images[0]);
@@ -93,71 +81,39 @@ class Home extends Component<Props> {
 
   render() {
     return (
-      <div>
-        <div className={styles.dropzones} data-tid="dropzones">
-          <h1>UIC Mehta Lab || Image Analyzer</h1>
-          <p>Upload AP View Images</p>
-          <Dropzone onDrop={this.onDrop.bind(this)}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  {this.state.files.length > 0 ? (
-                    <h4>{`Uploaded ${this.state.files[0].name}. Click to change.`}</h4>
-                  ) : (
-                    <Button>AP Image 1</Button>
-                  )}
-                </div>
-              </section>
-            )}
-          </Dropzone>
-
-          <Dropzone onDrop={this.onDrop2.bind(this)}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  {this.state.files2.length > 0 ? (
-                    <h4>{`Uploaded ${this.state.files2[0].name}. Click to change.`}</h4>
-                  ) : (
-                    <Button>AP Image 2</Button>
-                  )}
-                </div>
-              </section>
-            )}
-          </Dropzone>
-
-          <p>Upload Lateral View Images</p>
-          <Dropzone onDrop={this.onDrop3.bind(this)}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  {this.state.files3.length > 0 ? (
-                    <h4>{`Uploaded ${this.state.files3[0].name}. Click to change.`}</h4>
-                  ) : (
-                    <Button>LAT Image 1</Button>
-                  )}
-                </div>
-              </section>
-            )}
-          </Dropzone>
-
-          <Dropzone onDrop={this.onDrop4.bind(this)}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  {this.state.files4.length > 0 ? (
-                    <h4>{`Uploaded ${this.state.files4[0].name}. Click to change.`}</h4>
-                  ) : (
-                    <Button>LAT Image 2</Button>
-                  )}
-                </div>
-              </section>
-            )}
-          </Dropzone>
-        </div>
+      <div className={styles.dropzones} data-tid="dropzones">
+        <h1>UIC Mehta Lab || Image Analyzer</h1>
+        <p>Upload Images</p>
+        {[
+          {
+            drop: this.onDropPre,
+            files: this.state.preFiles,
+            name: 'Pre image'
+          },
+          {
+            drop: this.onDropPost,
+            files: this.state.postFiles,
+            name: 'Post image'
+          }
+        ].map(info => (
+          <>
+            <Dropzone onDrop={info.drop}>
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {info.files.length > 0 ? (
+                      <h4>{`Uploaded ${info.files[0].name}. Click to change.`}</h4>
+                    ) : (
+                      <Button>{info.name}</Button>
+                    )}
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+            <br />
+          </>
+        ))}
 
         <div className={styles.btn} data-tid="btn">
           <Link to="/Overlayed">
@@ -170,10 +126,13 @@ class Home extends Component<Props> {
             </button>
           </Link>
         </div>
+
         <div className={styles.warning} data-tid="warning">
           <h4>*please only upload png, jpeg, or jpg images*</h4>
         </div>
+
         <Button onClick={this.testRequest}>Test request</Button>
+
         {this.state.waiting && <h4>Waiting...</h4>}
         {this.props.left &&
           [this.props.left, this.props.overlay, this.props.right].map(image => (
