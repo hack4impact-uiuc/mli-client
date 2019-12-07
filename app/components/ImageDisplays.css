@@ -12,18 +12,21 @@
   /* color: #dadfe0; */
   text-align: center;
 }
-.selected {
+.unselected {
   background-color: #dadfe0;;
   color: black;
+  font-size: 14px;
   padding: 10px 24px;
   border: 2px solid #dadfe0;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom: 0;
 }
-.unselected {
+.selected {
   background-color: #5a858c;
   color: white;
+  font-size: 14px;
+  font-weight: bold;
   padding: 10px 24px;
   border: 2px solid #dadfe0;
   border-top-left-radius: 8px;
