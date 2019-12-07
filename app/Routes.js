@@ -4,12 +4,14 @@ import routes from './constants/routes';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
-import DisplayPage from './containers/DisplayPage';
+import OverlayedPage from './containers/OverlayedPage';
+import LabeledPage from './containers/LabeledPage';
 
 export default () => (
   <App>
     <Switch>
-      <Route path={routes.DISPLAY} component={DisplayPage} />
+      <Route path={routes.LABELED} component={LabeledPage} />
+      <Route path={routes.OVERLAYED} component={OverlayedPage} />
       <Route path={routes.COUNTER} component={CounterPage} />
       <Route path={routes.HOME} component={HomePage} />
     </Switch>

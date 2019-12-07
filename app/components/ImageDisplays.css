@@ -1,0 +1,45 @@
+
+.backButton {
+  color: #dadfe0;
+  position: absolute;
+}
+
+.backButton:hover {
+  color: white;
+}
+
+.tabs {
+  /* color: #dadfe0; */
+  text-align: center;
+}
+.selected {
+  background-color: #dadfe0;;
+  color: black;
+  padding: 10px 24px;
+  border: 2px solid #dadfe0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 0;
+}
+.unselected {
+  background-color: #5a858c;
+  color: white;
+  padding: 10px 24px;
+  border: 2px solid #dadfe0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 0;
+
+}
+
+.unselected:hover {
+  background-color: #dadfe0;;
+  color: black;
+}
+
+.images {
+  text-align: inherit;
+  padding-top: 10%;
+  display:flex;
+  flex-wrap:nowrap;
+}

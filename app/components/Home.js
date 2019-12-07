@@ -117,8 +117,7 @@ export default class Home extends Component<Props> {
 
         <div className={styles.link} data-tid="link">
           <h1>
-
-            <Link to={routes.DISPLAY}>Compare Images</Link>
+            <Link to={routes.OVERLAYED}>Compare Images</Link>
           </h1>
         </div>
       </>
