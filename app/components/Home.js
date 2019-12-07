@@ -32,7 +32,7 @@ class Home extends Component<Props> {
       files4: [],
       waiting: false
     };
-    this.testRequest = this.testRequest.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   onDrop(files) {
@@ -59,7 +59,7 @@ class Home extends Component<Props> {
     });
   }
 
-  async testRequest() {
+  async handleClick() {
     this.setState({ waiting: true });
     const file1 = await this.readFileDataAsBase64(this.state.files[0]);
     const file1Data = file1.slice(file1.indexOf(',') + 1);
@@ -73,6 +73,7 @@ class Home extends Component<Props> {
     this.props.setRight(images[1]);
     this.props.setOverlay(images[2]);
     this.setState({ waiting: false });
+    this.props.router.push(routes.OVERLAY);
   }
 
   readFileDataAsBase64(file) {
@@ -173,7 +174,7 @@ class Home extends Component<Props> {
         <div className={styles.warning} data-tid="warning">
           <h4>*please only upload png, jpeg, or jpg images*</h4>
         </div>
-        <Button onClick={this.testRequest}>Test request</Button>
+        <Button onClick={this.handleClick}>Test request</Button>
         {this.state.waiting && <h4>Waiting...</h4>}
         {this.props.left &&
           [this.props.left, this.props.overlay, this.props.right].map(image => (

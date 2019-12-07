@@ -3,6 +3,8 @@ import Iframe from 'react-iframe'
 import { Link } from 'react-router-dom';
 import styles from './ImageDisplays.css';
 import routes from '../constants/routes';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import pre from './pre.png';
 import post from './post.png';
@@ -30,9 +32,13 @@ export default class Overlayed extends Component<Props> {
           </Link>
         </div>
         <div className={styles.iframe} data-tid="iframe">
-          <Iframe id="iframe1" src={pre} height="75%" width="100%"></Iframe>
+          {this.props.left &&
+            [this.props.left, this.props.overlay, this.props.right].map(image => (
+              <img src={`data:image/png;base64,${image}`} />
+            ))}
+          <Iframe id="iframe1" src={left} height="75%" width="100%"></Iframe>
           <Iframe id="iframe2" src={overlay} height="75%" width="100%"></Iframe>
-          <Iframe id="iframe2" src={post} height="75%" width="100%"></Iframe>
+          <Iframe id="iframe2" src={right} height="75%" width="100%"></Iframe>
         </div>
 
 
