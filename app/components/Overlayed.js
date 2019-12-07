@@ -37,7 +37,7 @@ export default class Overlayed extends Component<Props> {
             <button type="button" className={styles.selected} data-tid="selected">Overlayed Images</button>
           </Link>
         </div>
-        <div className={styles.images} data-tid="images">
+        <div className={styles.iframe} data-tid="iframe">
           <iframe id="iframe1" src={apPre} height="75%" width="100%"></iframe>
           <iframe id="iframe2" src={apOverlay} height="75%" width="100%"></iframe>
           <iframe id="iframe2" src={apPost} height="75%" width="100%"></iframe>
