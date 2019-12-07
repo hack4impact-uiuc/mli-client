@@ -45,28 +45,26 @@ export default class Home extends Component<Props> {
     });
   }
 
-  //<Dropzone onDrop={this.onDrop.bind(this)}>
-  //<Dropzone onDrop={(file: any) => this.handleFileSelect('content1', file)} name="content1" className="dropzones" multiple={false} accept={allowedExtensions}>
   render() {
     return (
-      <>
-        <div className={styles.container} data-tid="container">
-          <h1>Please only upload the following types: .png, .jpeg, jpg</h1>
+      <div>
+        <div className={styles.dropzones} data-tid="dropzones">
+        <h1>UIC Mehta Lab || Image Analyzer</h1>
           <p>Upload AP View Images</p>
-          <Dropzone onDrop={this.onDrop.bind(this)}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  {this.state.files.length > 0 ? (
-                    <h4>{`Uploaded ${this.state.files[0].name}. Click to change.`}</h4>
-                  ) : (
-                    <Button>Add AP Image 1</Button>
-                  )}
-                </div>
-              </section>
-            )}
-          </Dropzone>
+            <Dropzone onDrop={this.onDrop.bind(this)}>
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {this.state.files.length > 0 ? (
+                      <h4>{`Uploaded ${this.state.files[0].name}. Click to change.`}</h4>
+                    ) : (
+                      <Button>AP Image 1</Button>
+                    )}
+                  </div>
+                </section>
+              )}
+            </Dropzone>
 
           <Dropzone onDrop={this.onDrop2.bind(this)}>
             {({ getRootProps, getInputProps }) => (
@@ -76,7 +74,7 @@ export default class Home extends Component<Props> {
                   {this.state.files2.length > 0 ? (
                     <h4>{`Uploaded ${this.state.files2[0].name}. Click to change.`}</h4>
                   ) : (
-                    <Button>Add AP Image 2</Button>
+                    <Button>AP Image 2</Button>
                   )}
                 </div>
               </section>
@@ -92,7 +90,7 @@ export default class Home extends Component<Props> {
                   {this.state.files3.length > 0 ? (
                     <h4>{`Uploaded ${this.state.files3[0].name}. Click to change.`}</h4>
                   ) : (
-                    <Button>Add Lat Image 2</Button>
+                    <Button>LAT Image 1</Button>
                   )}
                 </div>
               </section>
@@ -107,20 +105,28 @@ export default class Home extends Component<Props> {
                   {this.state.files4.length > 0 ? (
                     <h4>{`Uploaded ${this.state.files4[0].name}. Click to change.`}</h4>
                   ) : (
-                    <Button>Add Lat Image 2</Button>
-                  )}
+                    <Button>LAT Image 2</Button>
+                )}
                 </div>
               </section>
             )}
           </Dropzone>
         </div>
 
-        <div className={styles.link} data-tid="link">
-          <h1>
-            <Link to={routes.OVERLAYED}>Compare Images</Link>
-          </h1>
+        <div className={styles.btn} data-tid="btn">
+          <Link to="/Overlayed">
+            <button type="button" className={styles.selected} data-tid="selected">Compare Images</button>
+          </Link>
+
         </div>
-      </>
+        <div className={styles.warning} data-tid="warning">
+          <h4>*please only upload png, jpeg, or jpg images*</h4>
+        </div>
+      </div>
     );
   }
 }
+
+// <h1>
+//   <Link to={routes.OVERLAYED}>Compare Images</Link>
+// </h1>

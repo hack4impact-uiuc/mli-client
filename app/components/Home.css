@@ -1,26 +1,33 @@
-.container {
+.dropzones {
   position: relative;
   top: 25%;
-  left: inherit;
   text-align: center;
-  color: #eae8eb;
+  /* color: #eae8eb; */
+  font-weight: normal;
+  font-size: 12px;
   font-family: sans-serif;
 }
 
-.container h2 {
+/*
+.container h1 {
   font-size: 5rem;
 }
 
-.container a {
+.container p {
   font-size: 1.4rem;
-}
+} */
 
 
-.link {
+.btn {
+  /* background-color: #dadfe0; */
   font-family: sans-serif;
   bottom: 25%;
   text-align: center;
+  color: black;
+  font-size: 50px;
+  /* padding: 10px 24px; */
 }
-.btn {
-  color: white;
+
+.warning {
+  text-align: center;
 }

@@ -40,9 +40,10 @@
   color: black;
 }
 
-.images {
+.iframe {
   text-align: inherit;
   padding-top: 10%;
   display:flex;
   flex-wrap:nowrap;
+  box-sizing: border-box;
 }
