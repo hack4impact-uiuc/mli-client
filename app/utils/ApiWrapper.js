@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const BACKEND_URL =
-  'https://vilx2sy763.execute-api.us-east-1.amazonaws.com/Prod';
-const API_TOKEN = 'miaomiaoVERYsecurityMIAO';
+const BACKEND_URL = '';
+const API_TOKEN = '';
 
 export const getOverlay = (pre, post) => {
   const data = new FormData();

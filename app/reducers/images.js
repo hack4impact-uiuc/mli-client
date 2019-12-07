@@ -8,7 +8,7 @@ const initialState = {
   overlay: ''
 };
 
-export default function counter(state = initialState, action: Action) {
+export default function images(state = initialState, action: Action) {
   switch (action.type) {
     case SET_LEFT:
       return {
