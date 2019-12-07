@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import routes from '../constants/routes';
 import styles from './Home.css';
 import { getOverlay } from '../utils/ApiWrapper';
 
@@ -70,7 +69,7 @@ export default class Home extends Component<Props> {
     return (
       <div>
         <div className={styles.dropzones} data-tid="dropzones">
-        <h1>UIC Mehta Lab || Image Analyzer</h1>
+        <h1>UIC Mehta Lab | Image Analyzer</h1>
           <p>Upload AP View Images</p>
             <Dropzone onDrop={this.onDrop.bind(this)}>
               {({ getRootProps, getInputProps }) => (
