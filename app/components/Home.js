@@ -5,10 +5,22 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import styles from './Home.css';
 import { getOverlay } from '../utils/ApiWrapper';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { setLeft, setRight, setOverlay } from '../actions/images';
 
 type Props = {};
 
-export default class Home extends Component<Props> {
+const mapStateToProps = state => ({
+  left: state.images.left,
+  right: state.images.right,
+  overlay: state.images.overlay
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ setLeft, setRight, setOverlay }, dispatch);
+
+class Home extends Component<Props> {
   props: Props;
 
   constructor(props) {
@@ -18,9 +30,7 @@ export default class Home extends Component<Props> {
       files2: [],
       files3: [],
       files4: [],
-      left: null,
-      right: null,
-      overlay: null
+      waiting: false
     };
     this.testRequest = this.testRequest.bind(this);
   }
@@ -50,6 +60,7 @@ export default class Home extends Component<Props> {
   }
 
   async testRequest() {
+    this.setState({ waiting: true });
     const file1 = await this.readFileDataAsBase64(this.state.files[0]);
     const file1Data = file1.slice(file1.indexOf(',') + 1);
 
@@ -58,7 +69,10 @@ export default class Home extends Component<Props> {
     const res = await getOverlay(file1Data, file2Data);
 
     const images = res.response.data.images;
-    this.setState({ left: images[0], right: images[1], overlay: images[2] });
+    this.props.setLeft(images[0]);
+    this.props.setRight(images[1]);
+    this.props.setOverlay(images[2]);
+    this.setState({ waiting: false });
   }
 
   readFileDataAsBase64(file) {
@@ -160,11 +174,14 @@ export default class Home extends Component<Props> {
           <h4>*please only upload png, jpeg, or jpg images*</h4>
         </div>
         <Button onClick={this.testRequest}>Test request</Button>
-        {this.state.left &&
-          [this.state.left, this.state.overlay, this.state.right].map(image => (
+        {this.state.waiting && <h4>Waiting...</h4>}
+        {this.props.left &&
+          [this.props.left, this.props.overlay, this.props.right].map(image => (
             <img src={`data:image/png;base64,${image}`} />
           ))}
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

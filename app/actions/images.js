@@ -8,20 +8,20 @@ export const SET_OVERLAY = 'SET_OVERLAY';
 export function setLeft(left) {
   return {
     type: SET_LEFT,
-    left
+    value: left
   };
 }
 
 export function setRight(right) {
   return {
     type: SET_RIGHT,
-    right
+    value: right
   };
 }
 
 export function setOverlay(overlay) {
   return {
     type: SET_OVERLAY,
-    overlay
+    value: overlay
   };
 }
