@@ -4,17 +4,9 @@ import { Link } from 'react-router-dom';
 import styles from './ImageDisplays.css';
 import routes from '../constants/routes';
 
-import apPre from './ap-pre.png';
-import apPost from './ap-post.png';
-import apOverlay from './ap-overlay.png';
-import latPre from './lat-pre.png';
-import latPost from './lat-post.png';
-import latOverlay from './lat-overlay.png';
-
-//tests
-import test1 from './test1.png';
-import test2 from './test2.png';
-import test3 from './test3.png';
+import pre from './pre.png';
+import post from './post.png';
+import overlay from './overlay.png';
 
 type Props = {};
 
@@ -38,9 +30,9 @@ export default class Overlayed extends Component<Props> {
           </Link>
         </div>
         <div className={styles.iframe} data-tid="iframe">
-          <iframe id="iframe1" src={apPre} height="75%" width="100%"></iframe>
-          <iframe id="iframe2" src={apOverlay} height="75%" width="100%"></iframe>
-          <iframe id="iframe2" src={apPost} height="75%" width="100%"></iframe>
+          <Iframe id="iframe1" src={pre} height="75%" width="100%"></Iframe>
+          <Iframe id="iframe2" src={overlay} height="75%" width="100%"></Iframe>
+          <Iframe id="iframe2" src={post} height="75%" width="100%"></Iframe>
         </div>
 
 

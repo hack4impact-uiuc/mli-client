@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import routes from '../constants/routes';
 import styles from './Home.css';
 import { getOverlay } from '../utils/ApiWrapper';
 
@@ -169,7 +168,3 @@ export default class Home extends Component<Props> {
     );
   }
 }
-
-// <h1>
-//   <Link to={routes.OVERLAYED}>Compare Images</Link>
-// </h1>
