@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import Iframe from 'react-iframe'
 import { Link } from 'react-router-dom';
 import styles from './ImageDisplays.css';
 import routes from '../constants/routes';
-
-import labeled1 from './labeled1.png';
-import labeled2 from './labeled2.png';
+import { connect } from 'react-redux';
 
 type Props = {};
 
-export default class Labeled extends Component<Props> {
+const mapStateToProps = state => ({
+  labelPre: state.images.labelPre,
+  labelPost: state.images.labelPost
+});
+
+class Labeled extends Component<Props> {
   props: Props;
 
   render() {
+    const { labelPre, labelPost } = this.props;
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
@@ -22,19 +25,42 @@ export default class Labeled extends Component<Props> {
         </div>
         <div className={styles.tabs} data-tid="tabs">
           <Link to="/Overlayed">
-            <button type="button" className={styles.unselected} data-tid="unselected">Overlayed Images</button>
+            <button
+              type="button"
+              className={styles.unselected}
+              data-tid="unselected"
+            >
+              Overlayed Images
+            </button>
           </Link>
           <Link to="/Labeled">
-            <button type="button" className={styles.selected} data-tid="selected">Labeled Images</button>
+            <button
+              type="button"
+              className={styles.selected}
+              data-tid="selected"
+            >
+              Labeled Images
+            </button>
           </Link>
         </div>
         <div className={styles.iframe} data-tid="iframe">
-          <Iframe id="iframe1" src={labeled1} height="75%" width="100%"></Iframe>
-          <Iframe id="iframe2" src={labeled2} height="75%" width="100%"></Iframe>
+          {[
+            { title: 'Pre image', image: labelPre },
+            { title: 'Post image', image: labelPost }
+          ].map(info => (
+            <div className={styles.overlay}>
+              <h4>{info.title}</h4>
+              <img
+                src={`data:image/png;base64,${info.image}`}
+                width="100%"
+                alt={info.title}
+              />
+            </div>
+          ))}
         </div>
-
-
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps)(Labeled);

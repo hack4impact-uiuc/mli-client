@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import Iframe from 'react-iframe';
 import { Link } from 'react-router-dom';
 import styles from './ImageDisplays.css';
 import routes from '../constants/routes';
 import { connect } from 'react-redux';
 
 type Props = {};
-//Component.state.left = redux.state.images.left;
+
 const mapStateToProps = state => ({
   left: state.images.left,
   right: state.images.right,
@@ -53,7 +52,11 @@ class Overlayed extends Component<Props> {
           ].map(info => (
             <div className={styles.overlay}>
               <h4>{info.title}</h4>
-              <img src={`data:image/png;base64,${info.image}`} width="100%" />
+              <img
+                src={`data:image/png;base64,${info.image}`}
+                width="100%"
+                alt={info.title}
+              />
             </div>
           ))}
         </div>

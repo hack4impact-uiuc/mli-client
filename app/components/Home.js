@@ -8,7 +8,7 @@ import { getOverlay } from '../utils/ApiWrapper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setLeft, setRight, setOverlay } from '../actions/images';
-import {withRouter} from 'react-router'
+import { withRouter } from 'react-router';
 
 type Props = {};
 
@@ -32,7 +32,7 @@ class Home extends Component<Props> {
       waiting: false,
       complete: false
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.sendRequest = this.sendRequest.bind(this);
     this.onDropPre = this.onDropPre.bind(this);
     this.onDropPost = this.onDropPost.bind(this);
   }
@@ -49,7 +49,7 @@ class Home extends Component<Props> {
     });
   }
 
-  async handleClick() {
+  async sendRequest() {
     this.setState({ waiting: true });
     const preFile = await this.readFileDataAsBase64(this.state.preFiles[0]);
     const preFileData = preFile.slice(preFile.indexOf(',') + 1);
@@ -58,12 +58,12 @@ class Home extends Component<Props> {
     const postFileData = postFile.slice(postFile.indexOf(',') + 1);
     const res = await getOverlay(preFileData, postFileData);
 
+    console.log(res);
     const images = res.response.data.images;
     this.props.setLeft(images[0]);
     this.props.setRight(images[1]);
     this.props.setOverlay(images[2]);
     this.setState({ waiting: false });
-    this.props.router.push(routes.OVERLAY);
     this.setState({ complete: true });
   }
 
@@ -88,6 +88,9 @@ class Home extends Component<Props> {
       <div className={styles.dropzones} data-tid="dropzones">
         <h1>UIC Mehta Lab || Image Analyzer</h1>
         <p>Upload Images</p>
+        <div className={styles.warning} data-tid="warning">
+          <h4>*please only upload png, jpeg, or jpg images*</h4>
+        </div>
         {[
           {
             drop: this.onDropPre,
@@ -119,22 +122,27 @@ class Home extends Component<Props> {
           </>
         ))}
 
-        <div className={styles.btn} data-tid="btn">
-          <Link to="/Overlayed">
-            <button
-              type="button"
-              className={styles.selected}
-              data-tid="selected"
-            >
-              Compare Images
-            </button>
-          </Link>
-        </div>
+        <Button
+          onClick={this.sendRequest}
+          disabled={!this.state.preFiles.length || !this.state.postFiles.length}
+        >
+          Process images
+        </Button>
 
-        <div className={styles.warning} data-tid="warning">
-          <h4>*please only upload png, jpeg, or jpg images*</h4>
-        </div>
-        <Button onClick={this.handleClick}>Test request</Button>
+        {this.props.complete && (
+          <div className={styles.btn} data-tid="btn">
+            <Link to="/Overlayed">
+              <Button
+                type="button"
+                className={styles.selected}
+                data-tid="selected"
+              >
+                Compare Images
+              </Button>
+            </Link>
+          </div>
+        )}
+
         {this.state.waiting && <h4>Waiting...</h4>}
         {this.state.complete && <h4>Complete!</h4>}
       </div>
@@ -142,7 +150,7 @@ class Home extends Component<Props> {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
 
 // {this.props.left &&
 //   [this.props.left, this.props.overlay, this.props.right].map(image => (
