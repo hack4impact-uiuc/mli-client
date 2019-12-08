@@ -2,13 +2,15 @@ import axios from 'axios';
 
 //const BACKEND_URL = '';
 //const API_TOKEN = '';
-const BACKEND_URL = 'https://vilx2sy763.execute-api.us-east-1.amazonaws.com/Prod'
+const BACKEND_URL =
+  'https://vilx2sy763.execute-api.us-east-1.amazonaws.com/Prod';
 const API_TOKEN = 'miaomiaoVERYsecurityMIAO';
 
-export const getOverlay = (pre, post) => {
+export const getOverlay = (pre, post, noiseReduction) => {
   const data = new FormData();
   data.append('preImage', pre);
   data.append('postImage', post);
+  data.append('noiseReduction', noiseReduction);
   console.log(data);
 
   const headers = new Headers();

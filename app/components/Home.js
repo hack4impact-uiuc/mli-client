@@ -2,24 +2,35 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Input } from 'reactstrap';
 import styles from './Home.css';
 import { getOverlay } from '../utils/ApiWrapper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setLeft, setRight, setOverlay } from '../actions/images';
-import { withRouter } from 'react-router';
+import {
+  setLeft,
+  setRight,
+  setOverlay,
+  setLabelPre,
+  setLabelPost
+} from '../actions/images';
 
 type Props = {};
 
-const mapStateToProps = state => ({
-  left: state.images.left,
-  right: state.images.right,
-  overlay: state.images.overlay
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ setLeft, setRight, setOverlay }, dispatch);
+  bindActionCreators(
+    { setLeft, setRight, setOverlay, setLabelPre, setLabelPost },
+    dispatch
+  );
+
+const Statuses = {
+  READY: 'READY',
+  PENDING: 'PENDING',
+  RESOLVED: 'RESOLVED',
+  ERROR: 'ERROR'
+};
 
 class Home extends Component<Props> {
   props: Props;
@@ -29,8 +40,8 @@ class Home extends Component<Props> {
     this.state = {
       preFiles: [],
       postFiles: [],
-      waiting: false,
-      complete: false
+      status: Statuses.READY,
+      noiseReduction: 50
     };
     this.sendRequest = this.sendRequest.bind(this);
     this.onDropPre = this.onDropPre.bind(this);
@@ -50,21 +61,28 @@ class Home extends Component<Props> {
   }
 
   async sendRequest() {
-    this.setState({ waiting: true });
+    this.setState({ status: Statuses.PENDING });
     const preFile = await this.readFileDataAsBase64(this.state.preFiles[0]);
     const preFileData = preFile.slice(preFile.indexOf(',') + 1);
 
     const postFile = await this.readFileDataAsBase64(this.state.postFiles[0]);
     const postFileData = postFile.slice(postFile.indexOf(',') + 1);
-    const res = await getOverlay(preFileData, postFileData);
+    const res = await getOverlay(
+      preFileData,
+      postFileData,
+      this.state.noiseReduction
+    );
 
     console.log(res);
-    const images = res.response.data.images;
-    this.props.setLeft(images[0]);
-    this.props.setRight(images[1]);
-    this.props.setOverlay(images[2]);
-    this.setState({ waiting: false });
-    this.setState({ complete: true });
+    if (res.response) {
+      const images = res.response.data.images;
+      this.props.setLeft(images[0]);
+      this.props.setRight(images[1]);
+      this.props.setOverlay(images[2]);
+      this.setState({ status: Statuses.RESOLVED });
+    } else {
+      this.setState({ status: Statuses.ERROR });
+    }
   }
 
   readFileDataAsBase64(file) {
@@ -83,24 +101,30 @@ class Home extends Component<Props> {
     });
   }
 
+  handleChange = e => {
+    this.setState({
+      [e.target.name]: Number(e.target.value)
+    });
+  };
+
   render() {
     return (
       <div className={styles.dropzones} data-tid="dropzones">
         <h1>UIC Mehta Lab || Image Analyzer</h1>
         <p>Upload Images</p>
         <div className={styles.warning} data-tid="warning">
-          <h4>*please only upload png, jpeg, or jpg images*</h4>
+          <h4>*please only upload PNG or JPEG files*</h4>
         </div>
         {[
           {
             drop: this.onDropPre,
             files: this.state.preFiles,
-            name: 'Pre image'
+            name: 'Upload pre image here'
           },
           {
             drop: this.onDropPost,
             files: this.state.postFiles,
-            name: 'Post image'
+            name: 'Upload post image here'
           }
         ].map(info => (
           <>
@@ -122,14 +146,36 @@ class Home extends Component<Props> {
           </>
         ))}
 
-        <Button
-          onClick={this.sendRequest}
-          disabled={!this.state.preFiles.length || !this.state.postFiles.length}
-        >
-          Process images
-        </Button>
+        <div className={styles.warning} data-tid="warning">
+          <h4>Enter noise reduction factor (0-100, recommended value 50):</h4>
+        </div>
+        <Input
+          name="noiseReduction"
+          placeholder="50"
+          onChange={this.handleChange}
+        />
 
-        {this.props.complete && (
+        <div className={styles.btn} data-tid="btn">
+          <Button
+            onClick={this.sendRequest}
+            disabled={
+              !this.state.preFiles.length ||
+              !this.state.postFiles.length ||
+              this.state.noiseReduction < 0 ||
+              this.state.noiseReduction > 100
+            }
+          >
+            Process images
+          </Button>
+        </div>
+
+        {this.state.status === Statuses.PENDING && (
+          <div className={styles.warning} data-tid="warning">
+            <h4>Waiting...</h4>
+          </div>
+        )}
+
+        {this.state.status === Statuses.RESOLVED && (
           <div className={styles.btn} data-tid="btn">
             <Link to="/Overlayed">
               <Button
@@ -143,16 +189,14 @@ class Home extends Component<Props> {
           </div>
         )}
 
-        {this.state.waiting && <h4>Waiting...</h4>}
-        {this.state.complete && <h4>Complete!</h4>}
+        {this.state.status === Statuses.ERROR && (
+          <div className={styles.warning} data-tid="warning">
+            <h4>An error was encountered.</h4>
+          </div>
+        )}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
-
-// {this.props.left &&
-//   [this.props.left, this.props.overlay, this.props.right].map(image => (
-//     <img src={`data:image/png;base64,${image}`} />
-//   ))}
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
