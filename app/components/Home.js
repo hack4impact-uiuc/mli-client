@@ -8,6 +8,7 @@ import { getOverlay } from '../utils/ApiWrapper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setLeft, setRight, setOverlay } from '../actions/images';
+import {withRouter} from 'react-router'
 
 type Props = {};
 
@@ -28,7 +29,8 @@ class Home extends Component<Props> {
     this.state = {
       preFiles: [],
       postFiles: [],
-      waiting: false
+      waiting: false,
+      complete: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.onDropPre = this.onDropPre.bind(this);
@@ -62,6 +64,7 @@ class Home extends Component<Props> {
     this.props.setOverlay(images[2]);
     this.setState({ waiting: false });
     this.props.router.push(routes.OVERLAY);
+    this.setState({ complete: true });
   }
 
   readFileDataAsBase64(file) {
@@ -133,13 +136,15 @@ class Home extends Component<Props> {
         </div>
         <Button onClick={this.handleClick}>Test request</Button>
         {this.state.waiting && <h4>Waiting...</h4>}
-        {this.props.left &&
-          [this.props.left, this.props.overlay, this.props.right].map(image => (
-            <img src={`data:image/png;base64,${image}`} />
-          ))}
+        {this.state.complete && <h4>Complete!</h4>}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
+
+// {this.props.left &&
+//   [this.props.left, this.props.overlay, this.props.right].map(image => (
+//     <img src={`data:image/png;base64,${image}`} />
+//   ))}
