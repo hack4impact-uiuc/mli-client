@@ -14,6 +14,7 @@ import {
   setLabelPre,
   setLabelPost
 } from '../actions/images';
+import { BounceLoader } from 'react-spinners';
 
 type Props = {};
 
@@ -30,6 +31,12 @@ const Statuses = {
   PENDING: 'PENDING',
   RESOLVED: 'RESOLVED',
   ERROR: 'ERROR'
+};
+
+const loaderCss = {
+  display: 'block',
+  ' margin-left': 'auto',
+  'margin-right': 'auto'
 };
 
 class Home extends Component<Props> {
@@ -170,23 +177,31 @@ class Home extends Component<Props> {
         </div>
 
         {this.state.status === Statuses.PENDING && (
-          <div className={styles.warning} data-tid="warning">
-            <h4>Waiting...</h4>
-          </div>
+          <>
+            <div className={styles.warning} data-tid="warning">
+              <h4>Processing images - please wait...</h4>
+            </div>
+            <BounceLoader color="#ffffff" css={loaderCss} />
+          </>
         )}
 
         {this.state.status === Statuses.RESOLVED && (
-          <div className={styles.btn} data-tid="btn">
-            <Link to="/Overlayed">
-              <Button
-                type="button"
-                className={styles.selected}
-                data-tid="selected"
-              >
-                Compare Images
-              </Button>
-            </Link>
-          </div>
+          <>
+            <div className={styles.warning} data-tid="warning">
+              <h4>Your results are ready - click the button below to view.</h4>
+            </div>
+            <div className={styles.btn} data-tid="btn">
+              <Link to="/Overlayed">
+                <Button
+                  type="button"
+                  className={styles.selected}
+                  data-tid="selected"
+                >
+                  Compare Images
+                </Button>
+              </Link>
+            </div>
+          </>
         )}
 
         {this.state.status === Statuses.ERROR && (

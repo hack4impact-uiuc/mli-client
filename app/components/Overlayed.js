@@ -57,6 +57,12 @@ class Overlayed extends Component<Props> {
                 width="100%"
                 alt={info.title}
               />
+              <a
+                download={`${info.title}.EXT`}
+                href={`data:image/png;base64,${info.image}`}
+              >
+                <button>Save</button>
+              </a>
             </div>
           ))}
         </div>
