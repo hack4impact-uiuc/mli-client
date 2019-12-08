@@ -21,11 +21,11 @@ export default class Labeled extends Component<Props> {
           </Link>
         </div>
         <div className={styles.tabs} data-tid="tabs">
-          <Link to="/Labeled">
-            <button type="button" className={styles.selected} data-tid="selected">Labeled Images</button>
-          </Link>
           <Link to="/Overlayed">
             <button type="button" className={styles.unselected} data-tid="unselected">Overlayed Images</button>
+          </Link>
+          <Link to="/Labeled">
+            <button type="button" className={styles.selected} data-tid="selected">Labeled Images</button>
           </Link>
         </div>
         <div className={styles.iframe} data-tid="iframe">
