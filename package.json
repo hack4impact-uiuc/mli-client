@@ -1,6 +1,6 @@
 {
   "name": "mli-client",
-  "productName": "ElectronReact",
+  "productName": "MLIImageAnalyzer",
   "version": "0.1.0",
   "description": "Client-side app for the UIC MLI Hack4Impact UIUC Project.",
   "scripts": {
@@ -56,7 +56,7 @@
   },
   "main": "./app/main.prod.js",
   "build": {
-    "productName": "ElectronReact",
+    "productName": "MLIImageAnalyzer",
     "appId": "org.develar.ElectronReact",
     "files": [
       "app/dist/",

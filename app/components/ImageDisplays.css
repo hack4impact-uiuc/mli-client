@@ -41,13 +41,15 @@
 
 .iframe {
   text-align: inherit;
-  padding-top: 5%;
+  padding-top: 10px;
   display: flex;
   flex-wrap: nowrap;
   box-sizing: border-box;
-  height: 500;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .overlay {
   text-align: center;
+  margin: 10px;
 }

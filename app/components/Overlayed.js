@@ -54,9 +54,11 @@ class Overlayed extends Component<Props> {
               <h4>{info.title}</h4>
               <img
                 src={`data:image/png;base64,${info.image}`}
+                max-height="80%"
                 width="100%"
                 alt={info.title}
               />
+              <br />
               <a
                 download={`${info.title}.EXT`}
                 href={`data:image/png;base64,${info.image}`}
