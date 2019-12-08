@@ -1,0 +1,53 @@
+.backButton {
+  color: #dadfe0;
+  position: absolute;
+}
+
+.backButton:hover {
+  color: white;
+}
+
+.tabs {
+  /* color: #dadfe0; */
+  text-align: center;
+}
+.unselected {
+  background-color: #dadfe0;
+  color: black;
+  font-size: 14px;
+  padding: 10px 24px;
+  border: 2px solid #dadfe0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 0;
+}
+
+.selected {
+  background-color: #5a858c;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 24px;
+  border: 2px solid #dadfe0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 0;
+}
+
+.unselected:hover {
+  background-color: #dadfe0;
+  color: black;
+}
+
+.iframe {
+  text-align: inherit;
+  padding-top: 5%;
+  display: flex;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  height: 500;
+}
+
+.overlay {
+  text-align: center;
+}
