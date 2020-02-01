@@ -3,8 +3,8 @@ import {
   SET_LEFT,
   SET_RIGHT,
   SET_OVERLAY,
-  SET_LABEL_PRE,
-  SET_LABEL_POST
+  SET_ANNOTATE_PRE,
+  SET_ANNOTATE_POST
 } from '../actions/images';
 import type { Action } from './types';
 
@@ -12,8 +12,8 @@ const initialState = {
   left: '',
   right: '',
   overlay: '',
-  labelPre: '',
-  labelPost: ''
+  annotatePre: '',
+  annotatePost: ''
 };
 
 export default function images(state = initialState, action: Action) {
@@ -33,15 +33,15 @@ export default function images(state = initialState, action: Action) {
         ...state,
         overlay: action.value
       };
-    case SET_LABEL_PRE:
+    case SET_ANNOTATE_PRE:
       return {
         ...state,
-        labelPre: action.value
+        annotatePre: action.value
       };
-    case SET_LABEL_POST:
+    case SET_ANNOTATE_POST:
       return {
         ...state,
-        labelPost: action.value
+        annotatePost: action.value
       };
     default:
       return state;

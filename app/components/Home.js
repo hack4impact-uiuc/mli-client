@@ -4,15 +4,15 @@ import Dropzone from 'react-dropzone';
 import { Link } from 'react-router-dom';
 import { Button, Input } from 'reactstrap';
 import styles from './Home.css';
-import { getOverlay } from '../utils/ApiWrapper';
+import { getAnnotate, getOverlay } from '../utils/ApiWrapper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   setLeft,
   setRight,
   setOverlay,
-  setLabelPre,
-  setLabelPost
+  setAnnotatePre,
+  setAnnotatePost
 } from '../actions/images';
 import { BounceLoader } from 'react-spinners';
 
@@ -22,7 +22,7 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { setLeft, setRight, setOverlay, setLabelPre, setLabelPost },
+    { setLeft, setRight, setOverlay, setAnnotatePre, setAnnotatePost },
     dispatch
   );
 
@@ -74,20 +74,31 @@ class Home extends Component<Props> {
 
     const postFile = await this.readFileDataAsBase64(this.state.postFiles[0]);
     const postFileData = postFile.slice(postFile.indexOf(',') + 1);
-    const res = await getOverlay(
+    const overlayRes = await getOverlay(
       preFileData,
       postFileData,
       this.state.noiseReduction
     );
 
-    console.log(res);
-    if (res.response) {
-      const images = res.response.data.images;
+    console.log(overlayRes);
+    if (overlayRes.response) {
+      const images = overlayRes.response.data.images;
       this.props.setLeft(images[0]);
       this.props.setRight(images[1]);
       this.props.setOverlay(images[2]);
-      this.setState({ status: Statuses.RESOLVED });
+
+      const annotateRes = await getAnnotate();
+      if (annotateRes.response) {
+        const images = annotateRes.response.data.images;
+        this.props.setAnnotatePre(images[0]);
+        this.props.setAnnotatePost(images[1]);
+        this.setState({ status: Statuses.RESOLVED });
+      } else {
+        console.log(annotateRes);
+        this.setState({ status: Statuses.ERROR });
+      }
     } else {
+      console.log(overlayRes.error);
       this.setState({ status: Statuses.ERROR });
     }
   }

@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 type Props = {};
 
 const mapStateToProps = state => ({
-  labelPre: state.images.labelPre,
-  labelPost: state.images.labelPost
+  labelPre: state.images.annotatePre,
+  labelPost: state.images.annotatePost
 });
 
 class Labeled extends Component<Props> {

@@ -4,8 +4,8 @@ import type { GetState, Dispatch } from '../reducers/types';
 export const SET_LEFT = 'SET_LEFT';
 export const SET_RIGHT = 'SET_RIGHT';
 export const SET_OVERLAY = 'SET_OVERLAY';
-export const SET_LABEL_PRE = 'SET_LABEL_PRE';
-export const SET_LABEL_POST = 'SET_LABEL_POST';
+export const SET_ANNOTATE_PRE = 'SET_ANNOTATE_PRE';
+export const SET_ANNOTATE_POST = 'SET_ANNOTATE_POST';
 
 export function setLeft(left) {
   return {
@@ -28,16 +28,16 @@ export function setOverlay(overlay) {
   };
 }
 
-export function setLabelPre(labelPre) {
+export function setAnnotatePre(annotatePre) {
   return {
-    type: SET_LABEL_PRE,
-    value: labelPre
+    type: SET_ANNOTATE_PRE,
+    value: annotatePre
   };
 }
 
-export function setLabelPost(labelPost) {
+export function setAnnotatePost(annotatePost) {
   return {
-    type: SET_LABEL_POST,
-    value: labelPost
+    type: SET_ANNOTATE_POST,
+    value: annotatePost
   };
 }
