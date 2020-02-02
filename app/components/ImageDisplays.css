@@ -41,7 +41,6 @@
 
 .iframe {
   text-align: inherit;
-  padding-top: 10px;
   display: flex;
   flex-wrap: nowrap;
   box-sizing: border-box;
@@ -52,4 +51,8 @@
 .overlay {
   text-align: center;
   margin: 10px;
+}
+
+.centered {
+  text-align: center;
 }
