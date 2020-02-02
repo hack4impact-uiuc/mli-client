@@ -29,7 +29,8 @@ const mapDispatchToProps = dispatch =>
 const Statuses = {
   READY: 'READY',
   PENDING: 'PENDING',
-  RESOLVED: 'RESOLVED',
+  OVERLAY_DONE: 'OVERLAY_DONE',
+  ANNOTATE_DONE: 'ANNOTATE_DONE',
   ERROR: 'ERROR'
 };
 
@@ -86,13 +87,14 @@ class Home extends Component<Props> {
       this.props.setLeft(images[0]);
       this.props.setRight(images[1]);
       this.props.setOverlay(images[2]);
+      this.setState({ status: Statuses.OVERLAY_DONE });
 
       const annotateRes = await getAnnotate();
       if (annotateRes.response) {
         const images = annotateRes.response.data.images;
         this.props.setAnnotatePre(images[0]);
         this.props.setAnnotatePost(images[1]);
-        this.setState({ status: Statuses.RESOLVED });
+        this.setState({ status: Statuses.ANNOTATE_DONE });
       } else {
         console.log(annotateRes);
         this.setState({ status: Statuses.ERROR });
@@ -187,16 +189,22 @@ class Home extends Component<Props> {
           </Button>
         </div>
 
-        {this.state.status === Statuses.PENDING && (
+        {[Statuses.PENDING, Statuses.OVERLAY_DONE].includes(
+          this.state.status
+        ) && (
           <>
             <div className={styles.warning} data-tid="warning">
               <h4>Processing images - please wait...</h4>
+              <h4>
+                {this.state.status === Statuses.PENDING ? '0' : '1'}/2 steps
+                complete...
+              </h4>
             </div>
             <BounceLoader color="#ffffff" css={loaderCss} />
           </>
         )}
 
-        {this.state.status === Statuses.RESOLVED && (
+        {this.state.status === Statuses.ANNOTATE_DONE && (
           <>
             <div className={styles.warning} data-tid="warning">
               <h4>Your results are ready - click the button below to view.</h4>
@@ -208,7 +216,7 @@ class Home extends Component<Props> {
                   className={styles.selected}
                   data-tid="selected"
                 >
-                  Compare Images
+                  View Results
                 </Button>
               </Link>
             </div>
