@@ -8,7 +8,7 @@
 }
 
 body {
-  overflow-y: scroll;
+  overflow-y: scroll !important;
 }
 
 .tabs {
@@ -52,6 +52,7 @@ body {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 15vh;
 }
 
 .overlay {

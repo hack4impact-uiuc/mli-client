@@ -43,6 +43,22 @@ class Labeled extends Component<Props> {
             </button>
           </Link>
         </div>
+        <div className={styles.centered} data-tid="centered">
+          <h4>
+            The output contains the original image annotated with lines
+            indicating the area containing the rod and dots indicating the
+            screws. In addition, the output contains text information indicating
+            the orientation degree of the rod/screw region in both the pre and
+            post image as well as the approximate movement of the rod to the
+            left or right.
+          </h4>
+          <h4>
+            However, this function does not always work, depending on how
+            well-conditioned the input images are. If you cannot understand the
+            results, try cropping the input images to show only the regions you
+            want to focus on and process them again.
+          </h4>
+        </div>
         <div className={styles.iframe} data-tid="iframe">
           {[
             { title: 'Pre image', image: labelPre },
