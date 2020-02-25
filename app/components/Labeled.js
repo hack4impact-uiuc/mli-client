@@ -39,7 +39,7 @@ class Labeled extends Component<Props> {
               className={styles.selected}
               data-tid="selected"
             >
-              Labeled Images
+              <u>Labeled Images</u>
             </button>
           </Link>
         </div>

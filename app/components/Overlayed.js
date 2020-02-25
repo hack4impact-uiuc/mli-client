@@ -32,7 +32,7 @@ class Overlayed extends Component<Props> {
               className={styles.selected}
               data-tid="selected"
             >
-              Overlayed Images
+              <u>Overlayed Images</u>
             </button>
           </Link>
           <Link to="/Labeled">

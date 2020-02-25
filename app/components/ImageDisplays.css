@@ -67,3 +67,25 @@ body {
 .centered {
   text-align: center;
 }
+
+button {
+  background-color: #eee;
+  border: none;
+  border-radius: 3px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+button:disabled {
+  background-color: #eee !important;
+}
+
+input {
+  padding: 5px;
+  border-radius: 3px;
+  border: none;
+}
