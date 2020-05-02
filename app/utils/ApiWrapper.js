@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const BACKEND_URL =
-  'https://fih642j6q0.execute-api.us-east-1.amazonaws.com/Prod';
-const API_TOKEN = 'miaomiaoVERYsecurityMIAO';
+const BACKEND_URL = '';
+const API_TOKEN = '';
 
 export const getOverlay = (preImage, postImage, noiseReduction) => {
   return axios({
@@ -11,10 +10,13 @@ export const getOverlay = (preImage, postImage, noiseReduction) => {
     data: { preImage, postImage, noiseReduction },
     headers: { 'Content-Type': 'application/json', 'x-api-key': API_TOKEN }
   })
-    .then(response => ({
-      type: 'OVERLAY_SUCCESS',
-      response
-    }))
+    .then(response => {
+      console.log(response);
+      return {
+        type: 'OVERLAY_SUCCESS',
+        response
+      };
+    })
     .catch(error => ({ type: 'OVERLAY_ERROR', error }));
 };
 
@@ -24,9 +26,12 @@ export const getAnnotate = () => {
     url: `${BACKEND_URL}/annotate`,
     headers: { 'Content-Type': 'application/json', 'x-api-key': API_TOKEN }
   })
-    .then(response => ({
-      type: 'ANNOTATE_SUCCESS',
-      response
-    }))
+    .then(response => {
+      console.log(response);
+      return {
+        type: 'ANNOTATE_SUCCESS',
+        response
+      };
+    })
     .catch(error => ({ type: 'ANNOTATE_ERROR', error }));
 };

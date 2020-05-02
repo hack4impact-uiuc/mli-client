@@ -8,14 +8,15 @@ type Props = {};
 
 const mapStateToProps = state => ({
   labelPre: state.images.annotatePre,
-  labelPost: state.images.annotatePost
+  labelPost: state.images.annotatePost,
+  messages: state.message
 });
 
 class Labeled extends Component<Props> {
   props: Props;
 
   render() {
-    const { labelPre, labelPost } = this.props;
+    const { labelPre, labelPost, messages } = this.props;
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
@@ -47,10 +48,10 @@ class Labeled extends Component<Props> {
           <h4>
             The output contains the original image annotated with lines
             indicating the area containing the rod and dots indicating the
-            screws. In addition, the output contains text information indicating
-            the orientation degree of the rod/screw region in both the pre and
-            post image as well as the approximate movement of the rod to the
-            left or right.
+            screws. In addition, the output may contain text information
+            indicating the orientation degree of the rod/screw region in both
+            the pre and post image as well as the approximate movement of the
+            rod to the left or right.
           </h4>
           <h4>
             However, this function does not always work, depending on how
@@ -80,6 +81,18 @@ class Labeled extends Component<Props> {
             </div>
           ))}
         </div>
+        {messages && (
+          <div className={styles.centered} data-tid="centered">
+            <h4>Logs:</h4>
+            <ul>
+              {messages
+                .filter(message => message !== null)
+                .map(message => (
+                  <li>{message}</li>
+                ))}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }
