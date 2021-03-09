@@ -12,9 +12,12 @@ import {
   setRight,
   setOverlay,
   setAnnotatePre,
-  setAnnotatePost
+  setAnnotatePost,
+  setSimilarity
 } from '../actions/images';
 import { BounceLoader } from 'react-spinners';
+import { t } from 'testcafe';
+import PNGReader from 'png.js';
 
 type Props = {};
 
@@ -22,7 +25,14 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { setLeft, setRight, setOverlay, setAnnotatePre, setAnnotatePost },
+    {
+      setLeft,
+      setRight,
+      setOverlay,
+      setAnnotatePre,
+      setAnnotatePost,
+      setSimilarity
+    },
     dispatch
   );
 
@@ -87,6 +97,32 @@ class Home extends Component<Props> {
       this.props.setLeft(images[0]);
       this.props.setRight(images[1]);
       this.props.setOverlay(images[2]);
+
+      const overlayBytes = atob(images[2]);
+      const png = new PNGReader(overlayBytes);
+      png.parse((err, png) => {
+        // const pixels = png.getRGBA8Array();
+
+        let total = png.width * png.height;
+        let diff = 0;
+
+        for (let i = 0; i < png.width; i++) {
+          for (let j = 0; j < png.height; j++) {
+            const pixel = png.getPixel(i, j);
+            const red = pixel[0];
+            const green = pixel[1];
+
+            if (red !== 0 || green !== 0) {
+              diff += Math.abs(red - green) / (red + green);
+            } else {
+              total -= 1;
+            }
+          }
+        }
+
+        this.props.setSimilarity(1 - diff / total);
+      });
+
       this.setState({ status: Statuses.OVERLAY_DONE });
 
       const annotateRes = await getAnnotate();

@@ -57,7 +57,7 @@
   "main": "./app/main.prod.js",
   "build": {
     "productName": "MLIImageAnalyzer",
-    "appId": "org.develar.ElectronReact",
+    "appId": "org.develar.MLIImageAnalyzer",
     "files": [
       "app/dist/",
       "app/app.html",
@@ -254,6 +254,7 @@
     "electron-log": "^3.0.4",
     "electron-updater": "^4.0.6",
     "history": "^4.9.0",
+    "png.js": "^0.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-dropzone": "10.2.0",

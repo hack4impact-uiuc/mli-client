@@ -10,14 +10,15 @@ type Props = {};
 const mapStateToProps = state => ({
   left: state.images.left,
   right: state.images.right,
-  overlay: state.images.overlay
+  overlay: state.images.overlay,
+  similarity: state.images.similarity
 });
 
 class Overlayed extends Component<Props> {
   props: Props;
 
   render() {
-    const { left, right, overlay } = this.props;
+    const { left, right, overlay, similarity } = this.props;
     return (
       <div className={styles.fullPage}>
         <div className={styles.backButton} data-tid="backButton">
@@ -58,6 +59,7 @@ class Overlayed extends Component<Props> {
             presence of the correspondingly-colored image.
           </h4>
         </div>
+        <div>Similarity: {similarity}</div>
         <div className={styles.iframe} data-tid="iframe">
           {[
             { title: 'Pre image', image: left },

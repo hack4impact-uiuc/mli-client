@@ -4,7 +4,8 @@ import {
   SET_RIGHT,
   SET_OVERLAY,
   SET_ANNOTATE_PRE,
-  SET_ANNOTATE_POST
+  SET_ANNOTATE_POST,
+  SET_SIMILARITY
 } from '../actions/images';
 import type { Action } from './types';
 
@@ -13,7 +14,8 @@ const initialState = {
   right: '',
   overlay: '',
   annotatePre: '',
-  annotatePost: ''
+  annotatePost: '',
+  similarity: 0
 };
 
 export default function images(state = initialState, action: Action) {
@@ -42,6 +44,11 @@ export default function images(state = initialState, action: Action) {
       return {
         ...state,
         annotatePost: action.value
+      };
+    case SET_SIMILARITY:
+      return {
+        ...state,
+        similarity: action.value
       };
     default:
       return state;

@@ -20,11 +20,11 @@ const assertNoConsoleErrors = async t => {
 fixture`Home Page`.page('../../app/app.html').afterEach(assertNoConsoleErrors);
 
 test('e2e', async t => {
-  await t.expect(getPageTitle()).eql('UIC Mehta Lab Image Anlayzer');
+  await t.expect(getPageTitle()).eql('UIC Mehta Lab Image Analyzer');
 });
 
 test('should open window', async t => {
-  await t.expect(getPageTitle()).eql('UIC Mehta Lab Image Anlayzer');
+  await t.expect(getPageTitle()).eql('UIC Mehta Lab Image Analyzer');
 });
 
 test(

@@ -8,7 +8,8 @@ export const getOverlay = (preImage, postImage, noiseReduction) => {
     method: 'post',
     url: `${BACKEND_URL}/overlay`,
     data: { preImage, postImage, noiseReduction },
-    headers: { 'Content-Type': 'application/json', 'x-api-key': API_TOKEN }
+    headers: { 'Content-Type': 'application/json', 'x-api-key': API_TOKEN },
+    maxBodyLength: 100000000
   })
     .then(response => {
       console.log(response);
